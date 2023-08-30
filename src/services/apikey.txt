@@ -1,0 +1,7 @@
+58b6a634f61b4a6b814738e625053e19
+
+Busqueda por id:
+.../{id}/information
+
+Busqueda compleja:
+.../complexSearch
