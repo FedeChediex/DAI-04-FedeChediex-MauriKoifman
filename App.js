@@ -1,8 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import  enu  from "./src/components/menu";
+import  Login  from "./src/components/login";
 import { useState } from "react";
-import Menu from "./src/components/menu";
 
 export default function App() {
   const [search, setSearch] = useState("marvel");
@@ -15,16 +14,15 @@ export default function App() {
   };
 
   return (
-    <ContextProvider>
+    
       <View style={styles.container}>
-        <Text>{search}</Text>
-        <TouchableOpacity onPress={onPress}> Press me!</TouchableOpacity>
-        <Menu search={search}></Menu>
+        <Login></Login>
         <StatusBar style="auto" />
       </View>
-    </ContextProvider>
+    
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
