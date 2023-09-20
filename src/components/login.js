@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import {SafeAreaView, TextInput, Button, StyleSheet, View, Text } from "react-native";
+import axios from 'axios'
 
 const Login = () => {
   const [email, setEmail] = useState({ email: "" });
   const [password, setPassword] = useState({ password: "" });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, navigation) => {
     event?.preventDefault();
+    axios.post({
+      baseURL: 'http://challenge-react.alkemy.org/',
+      body:{
+        email: email,
+        password: password
+      }
+      
+  })
+  navigation.navigate('Home')
+    
   };
 
   return (
@@ -16,13 +27,13 @@ const Login = () => {
         <TextInput
           style={styles.input}
           placeholder="Mail"
-          /*onChangeText={setEmail(value)}*/
+          onChangeText={newText => setEmail(newText)}
         />
         <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
-          /*onChangeText={setPassword(value)}*/
+          onChangeText={newText => setPassword(newText)}
           secureTextEntry={true}
         />
         <Button title="LogIn" onPress={handleSubmit()} />

@@ -1,7 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import  Login  from "./src/components/login";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import Login from "./src/components/login";
+import Menu from "./src/components/menu";
 import { useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {NavigationContainer} from '@react-navigation/native';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [search, setSearch] = useState("marvel");
@@ -12,14 +24,14 @@ export default function App() {
     console.log("on press");
     setSearch("New Title");
   };
-
+//Falta navegacion
   return (
-    
-      <View style={styles.container}>
-        <Login></Login>
-        <StatusBar style="auto" />
-      </View>
-    
+    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Menu} />
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

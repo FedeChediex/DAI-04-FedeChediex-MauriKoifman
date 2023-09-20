@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { getRecipesById } from "../../services/spoonacularService";
+import { getRecipesByID } from "../services/spoonacularService";
 import { ListChildStyle } from "./styles";
 
 const platos = ({ item, pressed, setPressed, index }) => {
@@ -19,7 +19,7 @@ const platos = ({ item, pressed, setPressed, index }) => {
 
   const onViewPressed = () => {
     setLoading(true);
-    getRecipesById(item.imdbID)
+    getRecipesByID(item.imdbID)
       .then((response) => {
         setLoading(false);
         setRecipe(response);

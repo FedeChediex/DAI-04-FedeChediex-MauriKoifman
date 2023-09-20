@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { getRecipesByID } from "../../services/omdbService";
+import { getRecipesByID } from "../../services/spoonacularService.js";
 import { ListChildStyle } from "./styles";
 
 const platos = ({ item, pressed, setPressed, index }) => {
@@ -19,10 +19,10 @@ const platos = ({ item, pressed, setPressed, index }) => {
 
   const onViewPressed = () => {
     setLoading(true);
-    getMoviesById(item.imdbID)
+    getRecipesByID(item.imdbID)
       .then((response) => {
         setLoading(false);
-        setMovie(response);
+        setRecipe(response);
         console.log(response);
       })
       .catch((error) => {
@@ -47,14 +47,14 @@ const platos = ({ item, pressed, setPressed, index }) => {
           }}
         />
         <Text style={ListChildStyle.title}>{item.Title}</Text>
-        {movie && pressed === index && (
+        {recipe && pressed === index && (
           <View
             style={[
               ListChildStyle.item,
               { backgroundColor: pressed === index ? "#00ffff" : "#ececec" },
             ]}
           >
-            <Text>{movie.Country}</Text>
+            <Text>{recipe.Country}</Text>
           </View>
         )}
       </View>

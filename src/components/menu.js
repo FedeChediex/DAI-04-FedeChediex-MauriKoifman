@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, ActivityIndicator, Text } from "react-native";
-import { getRecipesByName } from "../../services/spoonacularService";
+import { getRecipesByName } from "../services/spoonacularService";
 import { ListComponentStyle } from "./styles";
 import platos from "./platos";
-import { useContextState } from "../../../contextState";
+import { useContextState } from "../contextState";
 
 const Menu = ({ search }) => {
   const { contextState, setContextState } = useContextState();
