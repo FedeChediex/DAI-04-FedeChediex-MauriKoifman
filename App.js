@@ -6,8 +6,10 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
+import { ContextProvider } from "./src/contextState";
 import Login from "./src/components/login";
-import Menu from "./src/components/menu";
+import Home from "./src/components/Home";
+import ListChild from "./src/components/ListChild";
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from '@react-navigation/native';
@@ -26,12 +28,16 @@ export default function App() {
   };
 //Falta navegacion
   return (
+    <ContextProvider>
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Home" component={Menu} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="List" component={ListChild} />
+
     </Stack.Navigator>
     </NavigationContainer>
+    </ContextProvider>
   );
 }
 

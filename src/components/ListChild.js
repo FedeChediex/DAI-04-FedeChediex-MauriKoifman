@@ -6,15 +6,16 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { getRecipesByID } from "../../services/spoonacularService.js";
+import { getRecipesByID } from "../services/spoonacularService";
 import { ListChildStyle } from "./styles";
-
-const platos = ({ item, pressed, setPressed, index }) => {
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+const ListChild = ({ item, pressed, setPressed, index }) => {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setRe(null);
+    setRecipe(null);
   }, [pressed]);
 
   const onViewPressed = () => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {SafeAreaView, TextInput, Button, StyleSheet, View, Text } from "react-native";
 import axios from 'axios'
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [email, setEmail] = useState({ email: "" });
   const [password, setPassword] = useState({ password: "" });
 
@@ -16,7 +16,7 @@ const Login = () => {
       }
       
   })
-  navigation.navigate('Home')
+  
     
   };
 
@@ -36,7 +36,7 @@ const Login = () => {
           onChangeText={newText => setPassword(newText)}
           secureTextEntry={true}
         />
-        <Button title="LogIn" onPress={handleSubmit()} />
+        <Button title="LogIn" onPress={() => navigation.navigate('Home')}/>
       </View>
     </SafeAreaView>
   );

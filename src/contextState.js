@@ -17,11 +17,14 @@ export const reducer = (state = {}, action) => {
     case ActionTypes.setLoading: {
       return { ...state, loading: action.newValue };
     }
-    case ActionTypes.setRecipes: {
-      return { ...state, allRecipes: action.newValue };
+    case ActionTypes.setComidas: {
+      return { ...state, allComidas: action.newValue };
     }
     case ActionTypes.setUserToken: {
       return { ...state, userToken: action.newValue };
+    }
+    case ActionTypes.setMenu: {
+      return { ...state, menu: action.newValue };
     }
     default: {
       return state;
