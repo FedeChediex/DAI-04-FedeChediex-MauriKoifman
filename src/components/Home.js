@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
         setContextState({ newValue: false, type: ActionTypes.setLoading });
       });
     return;
-  }, []);
+  }, [Search]);
 
   return (
     <SafeAreaView style={ListComponentStyle.container}>
