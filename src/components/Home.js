@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, FlatList, ActivityIndicator, Text } from "react-native";
+import { SafeAreaView, FlatList, ActivityIndicator, Text, TextInput } from "react-native";
 import { getRecipesByName } from "../services/spoonacularService";
 import { ListComponentStyle } from "./styles";
 import ListChild from "./ListChild";
@@ -33,11 +33,15 @@ const Home = ({ navigation }) => {
         setContextState({ newValue: false, type: ActionTypes.setLoading });
       });
     return;
-  }, [Search]);
+  }, [search]);
 
   return (
     <SafeAreaView style={ListComponentStyle.container}>
-      <input value={search} onChange={(e) => setSearch(e.target.value)} />
+      <TextInput value={search} onChangeText={(e) => {
+  if (e.target) {
+    setSearch(e.target.value);
+  }
+}} />
       {contextState?.loading && (
         <ActivityIndicator size="large" color="#00ff00" />
       )}
