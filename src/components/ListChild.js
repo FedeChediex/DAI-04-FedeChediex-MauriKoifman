@@ -20,7 +20,7 @@ const ListChild = ({ item, pressed, setPressed, index }) => {
 
   const onViewPressed = () => {
     setLoading(true);
-    getRecipesByID(item.imdbID)
+    getRecipesByID(item.id)
       .then((response) => {
         setLoading(false);
         setRecipe(response);
@@ -44,10 +44,10 @@ const ListChild = ({ item, pressed, setPressed, index }) => {
         <Image
           style={ListChildStyle.tinyLogo}
           source={{
-            uri: item.Poster,
+            uri: item.image,
           }}
         />
-        <Text style={ListChildStyle.title}>{item.Title}</Text>
+        <Text style={ListChildStyle.title}>{item.title}</Text>
         {recipe && pressed === index && (
           <View
             style={[
