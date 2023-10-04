@@ -9,7 +9,7 @@ import {
 import { ContextProvider } from "./src/contextState";
 import Login from "./src/components/login";
 import Home from "./src/components/Home";
-import ListChild from "./src/components/ListChild";
+;import DetallePlato from "./src/components/DetallePlato" 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -21,9 +21,17 @@ export default function App() {
 //Falta navegacion
   return (
     <ContextProvider>
-    
-    <Login></Login>
-    </ContextProvider>
+    <NavigationContainer>
+
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="login"component={Login}/>
+        <Stack.Screen name="Buscador"component={Home}/>
+        <Stack.Screen name="detalle"component={DetallePlato}/>
+
+
+      </Stack.Navigator>
+    </NavigationContainer>
+  </ContextProvider>
   );
 }
 
