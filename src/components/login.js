@@ -13,70 +13,49 @@ const Login = ({ navigation }) => {
     const token = await login(values).catch((error) =>
       alert("Algun dato es erroneo")
     );
-    setContextState({
-      type: ActionTypes.setUserToken,
-      newValue: token,
-    });
-
-    navigation.navigate("Buscador");
+    if (token) {
+      setContextState({
+        type: ActionTypes.setUserToken,
+        newValue: token,
+      });
+      navigation.navigate("Buscador");
+    }
+    
   };
 
   return (
-    /*<View style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.text}>TP - Comidas</Text>
-      <View style={styles.loginBox}>
-      <Formik style={styles.form} initialValues={{ email: '', password: '' }}
-        onSubmit={handleForm}>
+
+      <Formik
+        style={styles.form}
+        initialValues={{ email: "", password: "" }}
+        onSubmit={handleForm}
+      >
         {({ handleChange, handleSubmit, values }) => (
-          <View>
-            <TextInput style={styles.input}
-
-              onChangeText={handleChange('email')}
-              value={values.email}
-            />
-            <TextInput style={styles.input}
-
-              onChangeText={handleChange('password')}
-              value={values.password}
-              secureTextEntry={true}
-            />
-
+          <View style={styles.loginBox}>
+            <Text style={styles.h2}>Iniciar Sesión</Text>
+            <View style={styles.userBox}>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange("email")}
+                value={values.email}
+                placeholder="Mail"
+              />
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange("password")}
+                value={values.password}
+                secureTextEntry={true}
+                placeholder="Password"
+              />
+            </View>
             <Pressable style={styles.button} onPress={handleSubmit}>
-              <Text>Iniciar Sesion</Text>
+              <Text style={styles.buttonText}>Iniciar Sesion</Text>
             </Pressable>
-
           </View>
         )}
       </Formik>
-    </View>*/
-    <View style={styles.container}>
-      <Text style={styles.text}>TP - Comidas</Text>
-      <View style={styles.loginBox}>
-        <Text style={styles.h2}>Iniciar Sesión</Text>
-        <View style={styles.userBox}>
-          <TextInput
-            style={styles.input}
-            onChangeText={handleChange("email")}
-            value={values.email}
-            placeholder="Correo electrónico"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={handleChange("password")}
-            value={values.password}
-            secureTextEntry={true}
-            placeholder="Contraseña"
-          />
-        </View>
-        <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
-        </Pressable>
-        <View>
-          <Pressable>
-            <Text style={styles.buttonText}>Iniciar Sesión</Text>
-          </Pressable>
-        </View>
-      </View>
     </View>
   );
 };
@@ -126,12 +105,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   buttonText: {
-    color: "#fff",
+    color: "#222",
     fontSize: 16,
     textTransform: "uppercase",
   },
 });
-
-
 
 export default Login;
