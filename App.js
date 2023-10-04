@@ -27,7 +27,7 @@ export default function App() {
         <Stack.Screen name="login"component={Login}/>
         <Stack.Screen name="Buscador"component={Home}/>
         <Stack.Screen name="detalle"component={DetallePlato}/>
-
+        
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -9,7 +9,7 @@ export const initialState = {
 export const ActionTypes = {
   setLoading: "SET_LOADING",
   setRecipes: "SET_RECIPES",
-  setUserToken: "Set_USER_TOKEN",
+  setUserToken: "SET_USER_TOKEN",
 };
 
 export const reducer = (state = {}, action) => {
