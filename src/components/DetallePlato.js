@@ -14,7 +14,7 @@ const DetallePlato = ({ navigation, route }) => {
   const showAlert = () =>
     Alert.alert(
       'Error',
-      'El plato ya se encuentra en el menú',
+      'El plato ya fue agregado al menú',
       [
         {
           text: 'Cancelar',
@@ -80,18 +80,18 @@ const DetallePlato = ({ navigation, route }) => {
     const platoExistente = menuActual.find((item) => item.id === plato.id);
 
     if (menuActual.length >= 4) {
-      Alert.alert('Error', 'El menú ya tiene 4 platos. No se puede agregar más.');
+      Alert.alert('Error', 'Llego al limite de platos en el menu.');
     } else if (plato.vegan) {
       const veganos = menuActual.filter((item) => item.vegan);
       if (veganos.length >= 2) {
-        Alert.alert('Error', 'Ya hay 2 platos veganos en el menú. No se puede agregar más.');
+        Alert.alert('Error', 'Llego al limite de platos veganos agregados.');
       } else {
         agregarPlato(menuActual);
       }
     } else {
       const noVeganos = menuActual.filter((item) => !item.vegan);
       if (noVeganos.length >= 2) {
-        Alert.alert('Error', 'Ya hay 2 platos no veganos en el menú. No se puede agregar más.');
+        Alert.alert('Error', 'Llego al limite de platos no veganos agregados.');
       } else {
         agregarPlato(menuActual);
       }
@@ -102,7 +102,7 @@ const DetallePlato = ({ navigation, route }) => {
     const nuevoMenu = [...menuActual, plato];
     setContextState({ newValue: true, type: ActionTypes.setLoading })
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
-    console.log("Plato agregado al menú");
+    console.log("Plato agregado al menú correctamente");
     setCantidadPlatos(cantidadPlatos + 1);
     navigation.navigate("Home");
   };

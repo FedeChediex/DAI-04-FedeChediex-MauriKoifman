@@ -23,6 +23,10 @@ export const reducer = (state = {}, action) => {
     case ActionTypes.setUserToken: {
       return { ...state, userToken: action.newValue };
     }
+    case ActionTypes.setMenu: {
+      return { ...state, menu: action.newValue };
+    }
+    
     
     default: {
       return state;

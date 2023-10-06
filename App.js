@@ -9,7 +9,7 @@ import {
 import { ContextProvider } from "./src/contextState";
 import Login from "./src/components/login";
 import Home from "./src/components/Home";
-;import DetallePlato from "./src/components/DetallePlato" 
+import DetallePlato from "./src/components/DetallePlato" 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from '@react-navigation/native';
 
