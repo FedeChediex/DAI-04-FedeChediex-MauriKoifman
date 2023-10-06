@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { ContextProvider } from "./src/contextState";
 import Login from "./src/components/login";
-import Home from "./src/components/Home";
+import Home from "./src/components/Buscador";
 ;import DetallePlato from "./src/components/DetallePlato" 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from '@react-navigation/native';
@@ -25,7 +25,7 @@ export default function App() {
 
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="login"component={Login}/>
-        <Stack.Screen name="Buscador"component={Home}/>
+        <Stack.Screen name="Buscador"component={Buscador}/>
         <Stack.Screen name="detalle"component={DetallePlato}/>
         
 
