@@ -5,7 +5,7 @@ import { ActionTypes, useContextState } from "../contextState"
 import { getRecipesById } from '../services/spoonacularService';
 import { ListChildStyle } from './styles';
 
-const DetallePlato = ({ navigation, route }) => {
+const DetallePlato = ({ navigation, id }) => {
   const [plato, setPlato] = useState({});
   const [platoExistente, setPlatoExistente] = useState(false);
   const [cantidadPlatos, setCantidadPlatos] = useState(0);
@@ -39,7 +39,7 @@ const DetallePlato = ({ navigation, route }) => {
   useEffect(() => {
     setContextState({ newValue: true, type: ActionTypes.setLoading });
 
-    getRecipesById(route.params.itemId)
+    getRecipesById(id)
       .then((response) => {
         setContextState({ newValue: false, type: ActionTypes.setLoading });
         setPlato(response);

@@ -18,7 +18,7 @@ export const getRecipesByName = async (title) => {
     }
   };
 
-export const getRecipesByID = async (id) => {
+export const getRecipesById = async (id) => {
   console.log(id)
     return AxiosClient.get(`/${id}/information${apiKey}`)
     .then((response) => {
