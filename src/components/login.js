@@ -12,7 +12,7 @@ const Login = ({ navigation }) => {
     console.log(values);
     const token = await login(values).catch((error) =>
       alert("Algun dato es erroneo")
-    );
+    )
     if (token) {
       setContextState({
         type: ActionTypes.setUserToken,
