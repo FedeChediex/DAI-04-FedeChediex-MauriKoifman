@@ -19,10 +19,11 @@ export const getRecipesByName = async (title) => {
   };
 
 export const getRecipesByID = async (id) => {
-    return AxiosClient.get(`${id}/information${apiKey}`)
+  console.log(id)
+    return AxiosClient.get(`/${id}/information${apiKey}`)
     .then((response) => {
-        console.log(response.data.Search)
-        return response.data.Search;
+        console.log(response.data)
+        return response.data;
         
     }).catch((error) => {
         throw error;
