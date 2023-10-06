@@ -11,11 +11,11 @@ const Buscador = ({ navigation }) => {
   const [search, setSearch] = useState('');
   const [buscar, setBuscar] = useState(false)
 
-  const renderItem = ({ item, index }) => (
+  const renderItem = ({ item, index}) => (
     <ListChild
       item={item}
       index={index}
-    //navigation={navigation.navigate("detalle")}
+      navigation={navigation}
     />
   );
 

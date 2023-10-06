@@ -10,7 +10,7 @@ import { getRecipesByID } from "../services/spoonacularService";
 import { ListChildStyle } from "./styles";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const ListChild = ({ item, pressed, setPressed, index }) => {
+const ListChild = ({ item, pressed, index, navigation}) => {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,17 +20,7 @@ const ListChild = ({ item, pressed, setPressed, index }) => {
 
   const onViewPressed = () => {
     setLoading(true);
-    getRecipesByID(item.id)
-      .then((response) => {
-        setLoading(false);
-        setRecipe(response);
-        console.log(response);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-    setPressed(index === pressed ? null : index);
+    navigation.navigate("detalle")
   };
   return (
     <TouchableOpacity onPress={onViewPressed}>
