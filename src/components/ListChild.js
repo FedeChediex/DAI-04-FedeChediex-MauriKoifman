@@ -16,12 +16,11 @@ const ListChild = ({ item, pressed, index, navigation}) => {
 
   useEffect(() => {
     setRecipe(null);
-    console.log(item)
   }, []);
 
   const onViewPressed = () => {
     setLoading(true);
-    navigation.navigate("detalle", item.id)
+    navigation.navigate("detalle", {id: item.id})
   };
   return (
     <TouchableOpacity onPress={onViewPressed}>

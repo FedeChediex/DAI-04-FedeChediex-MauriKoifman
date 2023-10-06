@@ -5,7 +5,7 @@ import { ActionTypes, useContextState } from "../contextState"
 import { getRecipesById } from '../services/spoonacularService';
 import { ListChildStyle } from './styles';
 
-const DetallePlato = ({ navigation, id }) => {
+const DetallePlato = ({ navigation, route }) => {
   const [plato, setPlato] = useState({});
   const [platoExistente, setPlatoExistente] = useState(false);
   const [cantidadPlatos, setCantidadPlatos] = useState(0);
@@ -37,13 +37,14 @@ const DetallePlato = ({ navigation, id }) => {
     );
 
   useEffect(() => {
+    console.log(route.params)
     setContextState({ newValue: true, type: ActionTypes.setLoading });
 
-    getRecipesById(id)
+    getRecipesById(route.params.id)
       .then((response) => {
         setContextState({ newValue: false, type: ActionTypes.setLoading });
         setPlato(response);
-        console.log(response);
+        console.log("Esta es la respuesta"+response);
         setContextState({ newValue: true, type: ActionTypes.setLoading });
         // Verifica si el plato está en el menú al cargar la pantalla
         setContextState({})
