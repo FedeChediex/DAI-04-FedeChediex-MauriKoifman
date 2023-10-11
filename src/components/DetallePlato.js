@@ -72,7 +72,7 @@ const DetallePlato = ({ navigation, route }) => {
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
     console.log("Plato eliminado del menú");
     setCantidadPlatos(cantidadPlatos - 1);
-    navigation.navigate("Home");
+    navigation.navigate("menu");
   };
 
   const onPressed = () => {
@@ -105,7 +105,7 @@ const DetallePlato = ({ navigation, route }) => {
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
     console.log("Plato agregado al menú correctamente");
     setCantidadPlatos(cantidadPlatos + 1);
-    navigation.navigate("Home");
+    navigation.navigate("menu");
   };
 
   return (
@@ -118,12 +118,12 @@ const DetallePlato = ({ navigation, route }) => {
         style={styles.image}
         source={{ uri: plato.image }}
       />
-      <Text style={ListChildStyle.title}>Precio de la porción: {plato.pricePerServing}</Text>
+      <Text style={ListChildStyle.title}>Precio del plato seleccionado: ${plato.pricePerServing}</Text>
       <Text style={ListChildStyle.title}>{plato.vegan ? "Si" : "No"} es vegano</Text>
 
       {platoExistente ? (
-        <TouchableOpacity style={styles.ButtonEliminar} onPress={() => Eliminar()}>
-          <Text style={styles.ButtonTextEliminar}>Eliminar del menú</Text>
+        <TouchableOpacity style={styles.ButtonQuitar} onPress={() => Eliminar()}>
+          <Text style={styles.ButtonTextQuitar}>Quitar plato del menú</Text>
         </TouchableOpacity>        
       ) : (
         // Deshabilitar el botón "Agregar" si el plato no se ha cargado correctamente
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: '#007bff',
-    borderRadius: 5,
-    width: '80%',
+    borderRadius: 2,
+    width: '40%',
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  ButtonEliminar: {
+  ButtonQuitar: {
     backgroundColor: 'red',
     borderRadius: 5,
     width: '80%',
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
   },
-  ButtonTextEliminar: {
+  ButtonTextQuitar: {
     color: 'white',
     fontWeight: 'bold',
   },

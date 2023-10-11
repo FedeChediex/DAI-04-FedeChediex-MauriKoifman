@@ -9,9 +9,10 @@ import {
 import { ContextProvider } from "./src/contextState";
 import Login from "./src/components/login";
 import Buscador from "./src/components/Buscador";
-;import DetallePlato from "./src/components/DetallePlato" 
+import DetallePlato from "./src/components/DetallePlato" 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {NavigationContainer} from '@react-navigation/native';
+import Menu from "./src/components/Menu";
 
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,7 @@ export default function App() {
         <Stack.Screen name="login"component={Login}/>
         <Stack.Screen name="Buscador"component={Buscador}/>
         <Stack.Screen name="detalle"component={DetallePlato}/>
-        
+        <Stack.Screen name="menu"component={Menu}/>
 
       </Stack.Navigator>
     </NavigationContainer>
