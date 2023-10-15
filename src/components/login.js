@@ -8,8 +8,7 @@ const Login = ({ navigation }) => {
   const { contextState, setContextState } = useContextState();
 
   const handleForm = async (values) => {
-    console.log("Entre al login");
-    console.log(values);
+    
     const token = await login(values).catch((error) =>
       alert("Algun dato es erroneo")
     )
@@ -18,7 +17,7 @@ const Login = ({ navigation }) => {
         type: ActionTypes.setUserToken,
         newValue: token,
       });
-      navigation.navigate("Buscador");
+      navigation.navigate("menu");
     }
     
   };

@@ -11,99 +11,71 @@ const DetallePlato = ({ navigation, route }) => {
   const [cantidadPlatos, setCantidadPlatos] = useState(0);
   const { contextState, setContextState } = useContextState();
 
-  const showAlert = () =>
-    Alert.alert(
-      'Error',
-      'El plato ya fue agregado al menú',
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: 'Eliminar',
-          onPress: () => Eliminar(),
-          style: 'destructive',
-        },
-      ],
-      {
-        cancelable: true,
-        onDismiss: () =>
-          Alert.alert(
-            'This alert was dismissed by tapping outside of the alert dialog.',
-          ),
-      },
-    );
-
+  
   useEffect(() => {
-    console.log(route.params)
     setContextState({ newValue: true, type: ActionTypes.setLoading });
 
     getRecipesById(route.params.id)
       .then((response) => {
-        setContextState({ newValue: false, type: ActionTypes.setLoading });
+        
         setPlato(response);
-        console.log("Esta es la respuesta"+response);
-        setContextState({ newValue: true, type: ActionTypes.setLoading });
         // Verifica si el plato está en el menú al cargar la pantalla
         setContextState({})
-        const menuActual = Array.isArray(contextState?.menu) ? contextState.menu : [];
+
+        const menuActual = contextState?.menu || [];
         const platoExistente = menuActual.find((item) => item.id === response.id);
 
-        if (platoExistente) {
-          setPlatoExistente(true);
-        }
+        platoExistente ? setPlatoExistente(true) : setPlatoExistente(false);
+          ; 
       })
       .catch((error) => {
         console.log(error);
         setContextState({ newValue: false, type: ActionTypes.setLoading });
       })
       .finally(() => {
-        setContextState({ newValue: false, type: ActionTypes.setLoading }); // Aquí detenemos la carga
-      });
+        setContextState({ newValue: false, type: ActionTypes.setLoading });
+      })
+
   }, []);
 
   const Eliminar = () => {
-    const menuActual = Array.isArray(contextState?.menu) ? contextState.menu : [];
+    const menu = contextState?.menu || [];
 
-    // Filtra el plato existente para eliminarlo del menú
-    const nuevoMenu = menuActual.filter((item) => item.id !== plato.id);
+    const nuevoMenu =  menu.filter((item) => item.id !== plato.id);
+
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
-    console.log("Plato eliminado del menú");
+
     setCantidadPlatos(cantidadPlatos - 1);
     navigation.navigate("menu");
   };
 
   const onPressed = () => {
-    const menuActual = Array.isArray(contextState?.menu) ? contextState.menu : [];
-
-    const platoExistente = menuActual.find((item) => item.id === plato.id);
-
-    if (menuActual.length >= 4) {
-      Alert.alert('Error', 'Llego al limite de platos en el menu.');
-    } else if (plato.vegan) {
-      const veganos = menuActual.filter((item) => item.vegan);
-      if (veganos.length >= 2) {
-        Alert.alert('Error', 'Llego al limite de platos veganos agregados.');
-      } else {
-        agregarPlato(menuActual);
-      }
+    const menuActual = contextState?.menu || [];
+  
+    const limiteVegano = menuActual.filter((item) => item.vegan).length;
+    const limiteNoVegano = menuActual.filter((item) => !item.vegan).length;
+    const limitePlatos = menuActual.length >= 4;
+  
+    if (limitePlatos) {
+      Alert.alert('Error', 'Llegaste al límite de platos en el menú.');
+    } else if (plato.vegan && limiteVegano >= 2) {
+      Alert.alert('Error', 'Llegaste al límite de platos veganos agregados.');
+    } else if (!plato.vegan && limiteNoVegano >= 2) {
+      Alert.alert('Error', 'Llegaste al límite de platos no veganos agregados.');
     } else {
-      const noVeganos = menuActual.filter((item) => !item.vegan);
-      if (noVeganos.length >= 2) {
-        Alert.alert('Error', 'Llego al limite de platos no veganos agregados.');
-      } else {
-        agregarPlato(menuActual);
-      }
+      console.log("Este es el plato: " + plato.title); // Debes acceder a plato.title en lugar de plato.plato
+      console.log("Este es el menú actual: " + menuActual.map(item => item.title).join(', '));
+      agregarPlato(menuActual);
     }
   };
+  
 
   const agregarPlato = (menuActual) => {
     const nuevoMenu = [...menuActual, plato];
+
     setContextState({ newValue: true, type: ActionTypes.setLoading })
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
-    console.log("Plato agregado al menú correctamente");
+
     setCantidadPlatos(cantidadPlatos + 1);
     navigation.navigate("menu");
   };
@@ -124,7 +96,7 @@ const DetallePlato = ({ navigation, route }) => {
       {platoExistente ? (
         <TouchableOpacity style={styles.ButtonQuitar} onPress={() => Eliminar()}>
           <Text style={styles.ButtonTextQuitar}>Quitar plato del menú</Text>
-        </TouchableOpacity>        
+        </TouchableOpacity>
       ) : (
         // Deshabilitar el botón "Agregar" si el plato no se ha cargado correctamente
         !contextState.loading ? (

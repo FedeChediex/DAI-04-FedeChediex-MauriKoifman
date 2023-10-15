@@ -12,19 +12,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const ListChild = ({ item, pressed, index, navigation}) => {
   const [recipe, setRecipe] = useState(null);
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     setRecipe(null);
   }, []);
 
   const onViewPressed = () => {
-    setLoading(true);
     navigation.navigate("detalle", {id: item.id})
   };
   return (
     <TouchableOpacity onPress={onViewPressed}>
-      {loading && <ActivityIndicator size="large" color="#00ff00" />}
       <View
         style={[
           ListChildStyle.item,

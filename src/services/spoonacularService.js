@@ -1,6 +1,6 @@
 import AxiosClient  from "./axiosClient"
 
-const apiKey = "?apiKey=5417214e5b3b4a41941f667bd68938bc"
+const apiKey = "?apiKey=a4c83ab221cd481fa6965d373c517709"
 
 
 export const getRecipesByName = async (title) => {

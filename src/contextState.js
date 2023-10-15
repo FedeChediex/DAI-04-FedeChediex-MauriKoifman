@@ -10,6 +10,7 @@ export const ActionTypes = {
   setLoading: "SET_LOADING",
   setRecipes: "SET_RECIPES",
   setUserToken: "SET_USER_TOKEN",
+  setMenu: "SET_MENU",
 };
 
 export const reducer = (state = {}, action) => {

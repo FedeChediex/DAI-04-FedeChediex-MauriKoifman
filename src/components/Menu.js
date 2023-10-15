@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Text, View, StyleSheet, TouchableOpacity, ScrollView, Animated } from "react-native";
 import { getRecipesByName } from "../services/spoonacularService";
 import { ActionTypes, useContextState } from "../contextState";
-import ListChild from "./Listchild";
+import ListChild from "./Listchild.js";
 
 const Menu = ({ navigation }) => {
     const { contextState, setContextState } = useContextState();

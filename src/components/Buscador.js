@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, ActivityIndicator, Text, TextInput } from "react-native";
 import { getRecipesByName } from "../services/spoonacularService";
 import { ListComponentStyle } from "./styles";
-import ListChild from "./ListChild";
+import ListChild from "./Listchild.js";
 
 import { ActionTypes, useContextState } from "../contextState"
 
