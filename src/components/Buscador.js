@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { SafeAreaView, FlatList, ActivityIndicator, Text, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, FlatList, ActivityIndicator, Text, TextInput, View } from "react-native";
 import { getRecipesByName } from "../services/spoonacularService";
 import { ListComponentStyle } from "./styles";
 import ListChild from "./Listchild.js";
 
-import { ActionTypes, useContextState } from "../contextState"
+import { ActionTypes, useContextState } from "../contextState";
 
 const Buscador = ({ navigation }) => {
   const { contextState, setContextState } = useContextState();
   const [search, setSearch] = useState('');
-  const [buscar, setBuscar] = useState(false)
+  const [buscar, setBuscar] = useState(false);
 
-  const renderItem = ({ item, index}) => (
+  const renderItem = ({ item, index }) => (
     <ListChild
       item={item}
       index={index}
@@ -21,10 +21,9 @@ const Buscador = ({ navigation }) => {
 
   const handleKeyPress = (event, values) => {
     if (event.key === 'Enter') {
-      setBuscar(!buscar)
+      setBuscar(!buscar);
     }
-  }
-
+  };
 
   useEffect(() => {
     setContextState({ newValue: true, type: ActionTypes.setLoading });
@@ -45,7 +44,16 @@ const Buscador = ({ navigation }) => {
 
   return (
     <SafeAreaView style={ListComponentStyle.container}>
-      <TextInput value={search} onChangeText={setSearch} onKeyPress={(e) => { handleKeyPress(e) }} />
+      <View style={ListComponentStyle.searchBarContainer}>
+        <TextInput
+          value={search}
+          onChangeText={setSearch}
+          onKeyPress={(e) => { handleKeyPress(e) }}
+          style={ListComponentStyle.searchBar}
+          placeholder="Buscar recetas..."
+          placeholderTextColor="#333" // Cambia el color del texto de marcador
+        />
+      </View>
       {contextState?.loading && (
         <ActivityIndicator size="large" color="#00ff00" />
       )}

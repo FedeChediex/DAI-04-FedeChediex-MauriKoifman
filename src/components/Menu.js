@@ -23,7 +23,7 @@ const Menu = ({ navigation }) => {
 
   const calcularPrecioTotal = () => {
     const menu = contextState?.menu ?? [];
-    return menu.reduce((acc, plato) => acc + plato.pricePerServing, 0).toFixed(2);
+    return menu.reduce((acc, plato) => acc + plato.pricePerServing, 0);
   };
 
   const calcularPromedioHS = () => {
@@ -71,7 +71,7 @@ const Menu = ({ navigation }) => {
         <Text style={styles.title}>Menú</Text>
         <FlatList data={contextState?.menu ?? []} renderItem={renderItem} keyExtractor={(item) => item.title} />
         <Text style={styles.total}>Precio Total: {precioTotal}</Text>
-        <Text style={styles.promedio}>Promedio de HealthScore en el menú: {promedioHealthScore}</Text>
+        <Text style={styles.promedio}>Promedio HealthScore: {promedioHealthScore}</Text>
 
         <TouchableOpacity
           style={[styles.button, { transform: [{ scale: scaleValue }] }]}
@@ -89,7 +89,7 @@ const Menu = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#FFCE30",
       },
       scrollContainer: {
         paddingHorizontal: 16,
@@ -111,13 +111,15 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         marginTop: 8,
-        color: "#3498db",
+        color: "#746AB0",
       },
       button: {
         backgroundColor: "#e74c3c",
-        padding: 12,
+        padding: 7,
         borderRadius: 8,
         marginTop: 16,
+        width: '10%',
+        marginLeft: '45%'
       },
       buttonText: {
         color: "#fff",

@@ -79,7 +79,7 @@ const DetallePlato = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#E389B9',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#34495e',
   },
   button: {
-    backgroundColor: '#27ae60',
+    backgroundColor: 'black',
     borderRadius: 5,
     padding: 10,
     marginTop: 10,

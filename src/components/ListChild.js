@@ -24,7 +24,7 @@ const ListChild = ({ item, pressed, index, navigation}) => {
       <View
         style={[
           ListChildStyle.item,
-          { backgroundColor: pressed === index ? "#00ffff" : "#ececec" },
+          { backgroundColor: pressed === index ? "#00ffff" : "#00000" },
         ]}
       >
         <Image
@@ -38,7 +38,7 @@ const ListChild = ({ item, pressed, index, navigation}) => {
           <View
             style={[
               ListChildStyle.item,
-              { backgroundColor: pressed === index ? "#00ffff" : "#ececec" },
+              { backgroundColor: pressed === index ? "#00ffff" : "#00000" },
             ]}
           >
             <Text>{recipe.Country}</Text>
