@@ -1,61 +1,43 @@
-import * as React from 'react';
-import { View, Text, Image, ActivityIndicator, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native';
-import { useEffect, useState } from "react";
-import { ActionTypes, useContextState } from "../contextState"
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { ActionTypes, useContextState } from '../contextState';
 import { getRecipesById } from '../services/spoonacularService';
-import { ListChildStyle } from './styles';
 
 const DetallePlato = ({ navigation, route }) => {
   const [plato, setPlato] = useState({});
   const [platoExistente, setPlatoExistente] = useState(false);
-  const [cantidadPlatos, setCantidadPlatos] = useState(0);
   const { contextState, setContextState } = useContextState();
 
-  
   useEffect(() => {
     setContextState({ newValue: true, type: ActionTypes.setLoading });
 
     getRecipesById(route.params.id)
       .then((response) => {
-        
         setPlato(response);
-        // Verifica si el plato está en el menú al cargar la pantalla
-        setContextState({})
-
-        const menuActual = contextState?.menu || [];
-        const platoExistente = menuActual.find((item) => item.id === response.id);
-
-        platoExistente ? setPlatoExistente(true) : setPlatoExistente(false);
-          ; 
+        setContextState({});
+        const platoExistente = (contextState?.menu || []).some((item) => item.id === response.id);
+        setPlatoExistente(platoExistente);
       })
       .catch((error) => {
         console.log(error);
-        setContextState({ newValue: false, type: ActionTypes.setLoading });
       })
       .finally(() => {
         setContextState({ newValue: false, type: ActionTypes.setLoading });
-      })
-
+      });
   }, []);
 
-  const Eliminar = () => {
-    const menu = contextState?.menu || [];
-
-    const nuevoMenu =  menu.filter((item) => item.id !== plato.id);
-
+  const eliminarPlato = () => {
+    const nuevoMenu = (contextState?.menu || []).filter((item) => item.id !== plato.id);
     setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
-
-    setCantidadPlatos(cantidadPlatos - 1);
-    navigation.navigate("menu");
+    navigation.navigate('menu');
   };
 
-  const onPressed = () => {
+  const agregarPlato = () => {
     const menuActual = contextState?.menu || [];
-  
     const limiteVegano = menuActual.filter((item) => item.vegan).length;
     const limiteNoVegano = menuActual.filter((item) => !item.vegan).length;
     const limitePlatos = menuActual.length >= 4;
-  
+
     if (limitePlatos) {
       Alert.alert('Error', 'Llegaste al límite de platos en el menú.');
     } else if (plato.vegan && limiteVegano >= 2) {
@@ -63,49 +45,33 @@ const DetallePlato = ({ navigation, route }) => {
     } else if (!plato.vegan && limiteNoVegano >= 2) {
       Alert.alert('Error', 'Llegaste al límite de platos no veganos agregados.');
     } else {
-      console.log("Este es el plato: " + plato.title); // Debes acceder a plato.title en lugar de plato.plato
-      console.log("Este es el menú actual: " + menuActual.map(item => item.title).join(', '));
-      agregarPlato(menuActual);
+      setContextState({ newValue: [...menuActual, plato], type: ActionTypes.setMenu });
+      navigation.navigate('menu');
     }
-  };
-  
-
-  const agregarPlato = (menuActual) => {
-    const nuevoMenu = [...menuActual, plato];
-
-    setContextState({ newValue: true, type: ActionTypes.setLoading })
-    setContextState({ newValue: nuevoMenu, type: ActionTypes.setMenu });
-
-    setCantidadPlatos(cantidadPlatos + 1);
-    navigation.navigate("menu");
   };
 
   return (
     <View style={styles.container}>
-      {contextState.loading && <ActivityIndicator size="large" color="#00ff00" />}
+      {contextState.loading && <ActivityIndicator size="large" color="#3498db" />}
 
       <Text style={styles.title}>{plato.title}</Text>
 
-      <Image
-        style={styles.image}
-        source={{ uri: plato.image }}
-      />
-      <Text style={ListChildStyle.title}>Precio del plato seleccionado: ${plato.pricePerServing}</Text>
-      <Text style={ListChildStyle.title}>{plato.vegan ? "Si" : "No"} es vegano</Text>
+      <Image style={styles.image} source={{ uri: plato.image }} />
+
+      <Text style={styles.infoText}>Precio: ${plato.pricePerServing}</Text>
+      <Text style={styles.infoText}>{plato.vegan ? 'Vegano' : 'No Vegano'}</Text>
 
       {platoExistente ? (
-        <TouchableOpacity style={styles.ButtonQuitar} onPress={() => Eliminar()}>
-          <Text style={styles.ButtonTextQuitar}>Quitar plato del menú</Text>
+        <TouchableOpacity style={styles.button} onPress={eliminarPlato}>
+          <Text style={styles.buttonText}>Eliminar del menú</Text>
         </TouchableOpacity>
       ) : (
-        // Deshabilitar el botón "Agregar" si el plato no se ha cargado correctamente
-        !contextState.loading ? (
-          <TouchableOpacity style={styles.Button} onPress={() => onPressed()}>
-            <Text style={styles.ButtonText}>Agregar</Text>
+        !contextState.loading && (
+          <TouchableOpacity style={styles.button} onPress={agregarPlato}>
+            <Text style={styles.buttonText}>Agregar al menú</Text>
           </TouchableOpacity>
-        ) : null
+        )
       )}
-
     </View>
   );
 };
@@ -113,7 +79,7 @@ const DetallePlato = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ecf0f1',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -121,36 +87,27 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#2c3e50',
   },
   image: {
     width: 300,
     height: 300,
     resizeMode: 'cover',
+    marginBottom: 10,
+    borderRadius: 8,
   },
-  Button: {
-    backgroundColor: '#007bff',
-    borderRadius: 2,
-    width: '40%',
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
+  infoText: {
+    fontSize: 16,
+    color: '#34495e',
   },
-  ButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  ButtonQuitar: {
-    backgroundColor: 'red',
+  button: {
+    backgroundColor: '#27ae60',
     borderRadius: 5,
-    width: '80%',
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
     marginTop: 10,
   },
-  ButtonTextQuitar: {
-    color: 'white',
+  buttonText: {
+    color: '#fff',
     fontWeight: 'bold',
   },
 });
