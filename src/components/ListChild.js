@@ -20,19 +20,24 @@ const ListChild = ({ item, pressed, index, navigation}) => {
     navigation.navigate("detalle", {id: item.id})
   };
   return (
-    <TouchableOpacity onPress={onViewPressed}>
+    
       <View
         style={[
           ListChildStyle.item,
           { backgroundColor: pressed === index ? "#00ffff" : "#00000" },
         ]}
-      >
-        <Image
+      ><TouchableOpacity onPress={onViewPressed} 
+          style={[
+          ListChildStyle.button,
+        ]}>
+        
+        
+        <Image 
           style={ListChildStyle.tinyLogo}
           source={{
             uri: item.image,
           }}
-        />
+        /></TouchableOpacity>
         <Text style={ListChildStyle.title}>{item.title}</Text>
         {recipe && pressed === index && (
           <View
@@ -44,8 +49,8 @@ const ListChild = ({ item, pressed, index, navigation}) => {
             <Text>{recipe.Country}</Text>
           </View>
         )}
-      </View>
-    </TouchableOpacity>
+      
+    </View>
   );
 };
 

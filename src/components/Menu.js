@@ -89,7 +89,7 @@ const Menu = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFCE30",
+        backgroundColor: "#E389B9",
       },
       scrollContainer: {
         paddingHorizontal: 16,

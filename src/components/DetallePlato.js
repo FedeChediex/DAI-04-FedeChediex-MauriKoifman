@@ -37,13 +37,9 @@ const DetallePlato = ({ navigation, route }) => {
     const limiteVegano = menuActual.filter((item) => item.vegan).length;
     const limiteNoVegano = menuActual.filter((item) => !item.vegan).length;
     const limitePlatos = menuActual.length >= 4;
-
-    if (limitePlatos) {
+  
+    if (limitePlatos || (plato.vegan && limiteVegano >= 2) || (!plato.vegan && limiteNoVegano >= 2)) {
       Alert.alert('Error', 'Llegaste al límite de platos en el menú.');
-    } else if (plato.vegan && limiteVegano >= 2) {
-      Alert.alert('Error', 'Llegaste al límite de platos veganos agregados.');
-    } else if (!plato.vegan && limiteNoVegano >= 2) {
-      Alert.alert('Error', 'Llegaste al límite de platos no veganos agregados.');
     } else {
       setContextState({ newValue: [...menuActual, plato], type: ActionTypes.setMenu });
       navigation.navigate('menu');

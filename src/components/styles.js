@@ -26,7 +26,7 @@ export const ListComponentStyle = StyleSheet.create({
 export const ListChildStyle = StyleSheet.create({
   item: {
     width: '30%', // Ajusta el ancho como desees
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     backgroundColor: '#FFCE30', 
     borderRadius: 8,
@@ -46,8 +46,12 @@ export const ListChildStyle = StyleSheet.create({
     color: '#333',
   },
   tinyLogo: {
-    width: 150, // Ajusta el tamaño de la imagen como desees
-    height: 150, // Ajusta el tamaño de la imagen como desees
-    borderRadius: 8,
+    width: 200, // Ajusta el tamaño de la imagen como desees
+    height: 200, // Ajusta el tamaño de la imagen como desees
+    borderRadius: 10,
   },
+  button:{
+    width: 200,
+    
+  }
 });
