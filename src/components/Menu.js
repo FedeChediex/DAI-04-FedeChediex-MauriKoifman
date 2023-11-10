@@ -105,13 +105,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         marginTop: 16,
-        color: "#27ae60",
+        color: "#FFF",
       },
       promedio: {
         fontSize: 18,
         fontWeight: "bold",
         marginTop: 8,
-        color: "#746AB0",
+        color: "#FFF",
       },
       button: {
         backgroundColor: "#e74c3c",
